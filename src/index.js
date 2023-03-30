@@ -1,4 +1,5 @@
 //---   Imports   ---//
+const package = require('../package.json');
 const sleep = require('./modules/sleep');
 const randomFromArray = require('./modules/randomFromArray');
 const randomString = require('./modules/randomString');
@@ -7,8 +8,10 @@ const fs = require('fs');
 
 async function main() {
   //---   Splash Screen   ---//
-  console.log("Files will begin creation in 5s");
+  console.log("CageMyInfo - Version:", package.version)
+  console.log("Starting in 5s - ctrl+c to cancel at any time");
   await sleep(5000);
+  console.log("Copying...");
 
   //---   Preload Photos Into Memory   ---//
   let photos = new Array(); // Create final array containing all image data
@@ -20,9 +23,17 @@ async function main() {
   }
   
   //---   Begin Writing Data   ---//
-  while (true) {
+  let diskFull = false;
+  while (diskFull === false) {
     const file = randomFromArray(photos); // Pick a random file for each loop
-    fs.writeFileSync(`${Date.now()}_${randomString(3)}.${file.fileType}`, file.imageData); // Write file out
+    try {
+      fs.writeFileSync(`${Date.now()}_${randomString(3)}.${file.fileType}`, file.imageData); // Write file out
+    } catch (err) {
+      if (err.code == 'ENOSPC') {
+        diskFull == true;
+        return console.log("Disk is full. Exiting.")
+      }
+    }
   }
 
 }
