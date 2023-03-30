@@ -1,0 +1,19 @@
+{
+  "name": "cagemyinfo",
+  "version": "1.0.0",
+  "description": "Copy Nicholas Cage onto your entire drive",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frontesque/cagemyinfo.git"
+  },
+  "author": "Frontesque",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Frontesque/cagemyinfo/issues"
+  },
+  "homepage": "https://github.com/Frontesque/cagemyinfo#readme"
+}
